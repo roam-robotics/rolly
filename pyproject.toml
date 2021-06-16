@@ -1,0 +1,8 @@
+requires = [
+    "setuptools>=42",
+    "wheel",
+	"urllib",
+	"functools",
+	"json"
+]
+build-backend = "setuptools.build_meta"
