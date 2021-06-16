@@ -14,4 +14,6 @@ log.info('new arrivals',
              'movies': ['Planet Earth', 'Deadpool'],
              'paintings': ['Mona Lisa', 'Starry Night']
          })
+
+log.log('generic message', level='warning', data={'lol': 'wut?'})
 ```
