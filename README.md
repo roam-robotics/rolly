@@ -1,4 +1,4 @@
-# Rolly[Polly]
+# Rolly Polly
 A lightweight Rollbar client.
 
 ## Use
