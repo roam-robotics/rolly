@@ -43,9 +43,20 @@ class Polly:
         request.add_header('X-Rollbar-Access-Token', self.token)
         request.add_header('Content-Type', 'application/json; charset=utf-8')
         data = json.dumps(payload).encode('utf-8')
-        with urllib.request.urlopen(request, data) as url:
-            response = url.read()
-        return json.loads(response)
+        try:
+            with urllib.request.urlopen(request, data) as url:
+                response = url.read()
+        except urllib.error.HTTPError as err:
+            # in case of a generic HTTP error, return the code
+            return False, err.code
+        except Exception:
+            # in case of some other calamity, pass it upstream
+            raise
+
+        return_object = json.loads(response)
+        # did the call succeed?
+        ok = return_object.get('err', 1) == 0
+        return ok, return_object
 
     def log(self, message, level='debug', data=None):
         """
